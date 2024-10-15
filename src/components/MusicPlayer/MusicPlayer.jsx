@@ -58,7 +58,7 @@ const MusicPlayer = () => {
     }
     setIsPlaying(true);
   };
-  
+
   const playSongAtIndex = (index) => {
     setCurrentSongIndex(index);
     audioRef.current.src = songs[index].file;
@@ -90,23 +90,23 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     const audio = audioRef.current;
-  
+
     // Set source and load the new song
     audio.src = songs[currentSongIndex].file;
     audio.load();
-  
+
     // Play the song if it's already playing
     if (isPlaying) {
       audio.play();
     }
-  
+
     // Cleanup on unmount or song change
     return () => {
       audio.pause();
       audio.currentTime = 0;
     };
   }, [currentSongIndex, isPlaying]);
-  
+
 
   useEffect(() => {
     audioRef.current.src = songs[currentSongIndex].file;
@@ -130,63 +130,32 @@ const MusicPlayer = () => {
     const handleSongEnd = () => {
       playNextSong(); // This will play the next song or loop depending on your logic
     };
-  
+
     audioRef.current.addEventListener("ended", handleSongEnd);
-  
+
     return () => {
       audioRef.current.removeEventListener("ended", handleSongEnd);
     };
   }, [currentSongIndex, isLooping, isShuffling]); // Ensure that it reacts to index or shuffle/loop changes
-  
+
 
   const handleSpeedChange = (e) => {
     const selectedSpeed = parseFloat(e.target.value);
     setSpeed(selectedSpeed);
     audioRef.current.playbackRate = selectedSpeed;
   };
-  
+
 
   const handleRating = (ratingValue) => {
     setRating((prev) => ({ ...prev, [songs[currentSongIndex].name]: ratingValue }));
-    
+
   };
-  
+
   return (
-    
-    
-    <div className="fixed bottom-0 left-0 right-0 bg-white p-4 rounded-t-lg shadow-lg z-50 sm:p-6">
-      <div className="flex flex-col sm:flex-row items-center justify-between mb-4">
-        <h2 className="text-xl font-bold">Now Playing</h2>
-        <div className="relative">
-          <button onClick={toggleDropdown} className="focus:outline-none">
-            <FaEllipsisV />
-          </button>
-          {dropdownOpen && (
-            <div className="absolute bg-white shadow-lg rounded mt-2 right-0 w-48 z-10">
-              <ul className="py-1">
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaShareAlt className="mr-2" /> Share
-                </li>
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaPlus className="mr-2" /> Add to Playlist
-                </li>
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaDownload className="mr-2" /> Download
-                </li>
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaMusic className="mr-2" /> View Lyrics
-                </li>
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaMusic className="mr-2" /> Play Similar Song
-                </li> 
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaInfoCircle className="mr-2" /> Get Song Info
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
-      </div>
+
+
+    <div className="fixed bottom-0 left-0 right-0 bg-[#F5E6D3] p-4 rounded-t-lg shadow-lg z-50 sm:p-6  ">
+     
 
       {/* Current Song and Next Song */}
       <div className="flex flex-col sm:flex-row justify-between mb-4">
@@ -201,7 +170,7 @@ const MusicPlayer = () => {
       </div>
 
       {/* Progress Bar */}
-      <div className="mb-4">
+      <div className="mb-0">
         <input
           type="range"
           className="w-full"
@@ -217,8 +186,8 @@ const MusicPlayer = () => {
         </div>
       </div>
 
-      {/* Controls */}
-      <div className="flex items-center justify-center space-x-20 mb-4">
+      {/* Controls
+      <div className="flex items-center justify-center space-x-20 mb-0">
         <button onClick={toggleLike} className="hover:text-red-500">
           <FaHeart className={`${isLiked ? "text-red-500" : ""}`} />
         </button>
@@ -237,10 +206,11 @@ const MusicPlayer = () => {
         <button onClick={skipForward} className="hover:text-blue-500">
           <FaForward />
         </button>
-      </div>
+      </div> */}
 
       {/* Volume, Shuffle, Loop, Speed, and Rating */}
       <div className="flex justify-between items-center">
+        <div className="justify-between flex items-center gap-4">
         <div className="flex items-center">
           <FaVolumeUp />
           <input
@@ -257,15 +227,8 @@ const MusicPlayer = () => {
           />
         </div>
 
-        <div className="flex space-x-6">
-          <button onClick={toggleShuffle} className={`${isShuffling ? "text-blue-500" : ""}`}>
-            <FaRandom />
-          </button>
-          <button onClick={toggleLoop} className={`${isLooping ? "text-blue-500" : ""}`}>
-            <FaRedo />
-          </button>
-
-          <div className="flex items-center">
+        {/* speed */}
+        <div className="flex items-center">
           <label htmlFor="speed" className="mr-2 text-sm">Speed</label>
           <select id="speed" value={speed} onChange={handleSpeedChange} className="p-1 border rounded">
             <option value="0.5">0.5x</option>
@@ -277,9 +240,77 @@ const MusicPlayer = () => {
           </select>
         </div>
 
+        </div>
+
+
+        {/* Controls */}
+        <div className="flex items-center justify-center space-x-20 mb-0">
+          <button onClick={toggleLike} className="hover:text-red-500">
+            <FaHeart className={`${isLiked ? "text-red-600" : ""}`} />
+          </button>
+          <button onClick={skipBackward} className="hover:text-blue-500">
+            <FaBackward />
+          </button>
+          <button className="hover:text-blue-500" onClick={() => setCurrentSongIndex((currentSongIndex - 1 + songs.length) % songs.length)}>
+            <FaStepBackward />
+          </button>
+          <button onClick={togglePlayPause} className="hover:text-blue-500">
+            {isPlaying ? <FaPause /> : <FaPlay />}
+          </button>
+          <button className="hover:text-blue-500" onClick={playNextSong}>
+            <FaStepForward />
+          </button>
+          <button onClick={skipForward} className="hover:text-blue-500">
+            <FaForward />
+          </button>
+          
+        {/* 3 dots */}
+
+                
+        <div className="relative">
+          <button onClick={toggleDropdown} className="focus:outline-none ">
+            <FaEllipsisV />
+          </button>
+          {dropdownOpen && (
+            <div className="absolute bg-white shadow-lg rounded mt-2 right-0 w-48 z-10 max-h-40 overflow-y-auto">
+              <ul className="py-1">
+                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                  <FaShareAlt className="mr-2" /> Share
+                </li>
+                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                  <FaPlus className="mr-2" /> Add to Playlist
+                </li>
+                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                  <FaDownload className="mr-2" /> Download
+                </li>
+                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                  <FaMusic className="mr-2" /> View Lyrics
+                </li>
+                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                  <FaMusic className="mr-2" /> Play Similar Song
+                </li>
+                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                  <FaInfoCircle className="mr-2" /> Get Song Info
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
+        </div>
+
+        <div className="flex space-x-6">
+          <button onClick={toggleShuffle} className={`${isShuffling ? "text-blue-500" : ""}`}>
+            <FaRandom />
+          </button>
+          <button onClick={toggleLoop} className={`${isLooping ? "text-blue-500" : ""}`}>
+            <FaRedo />
+          </button>
+
+
+
           {/* Rating */}
           <div className="flex items-center gap-2">
-          <span>Rate this song</span>
+            <span>Rate this song</span>
             {Array.from({ length: 5 }, (_, index) => (
               <FaStar
                 key={index}
@@ -293,11 +324,10 @@ const MusicPlayer = () => {
         </div>
       </div>
 
-      
+
     </div>
-    
+
   );
 };
 
 export default MusicPlayer;
-  

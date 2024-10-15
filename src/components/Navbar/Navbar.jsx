@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa'; // Icons for hamburger and close buttons
+import { Link } from 'react-router-dom'; // Import Link from React Router
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,47 +29,50 @@ const Navbar = () => {
           <div className="absolute top-16 left-0 w-full bg-[#F5E6D3] shadow-lg">
             <ul className="flex flex-col items-center">
               <li className="py-2 text-lg">
-                <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">All Beats</a>
+                <Link to="/" onClick={toggleMenu} className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">All Beats</Link>
               </li>
               <li className="py-2 text-lg">
-                <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Free Beats</a>
+                <Link to="/free-beats" onClick={toggleMenu} className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Free Beats</Link>
               </li>
               <li className="py-2 text-lg">
-                <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Premium Beats</a>
+                <Link to="/premium-beats" onClick={toggleMenu} className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Premium Beats</Link>
               </li>
               <li className="py-2 text-lg">
-                <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">License Info</a>
+                <Link to="/license-info" onClick={toggleMenu} className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">License Info</Link>
               </li>
               <li className="py-2 text-lg">
-                <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">FAQ</a>
+                <Link to="/faq" onClick={toggleMenu} className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">FAQ</Link>
               </li>
               <li className="py-2 text-lg">
-                <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Contact</a>
+                <Link to="/contact" onClick={toggleMenu} className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Contact</Link>
               </li>
-              <button className="bg-[#00A4E4] text-white font-bold py-2 px-4 rounded hover:bg-[#008ec1] my-4">
-                Sign Up / Log In
-              </button>
+              <Link to="/signup-login" onClick={toggleMenu}>
+                <button className="bg-[#00A4E4] text-white font-bold py-2 px-4 rounded hover:bg-[#008ec1] my-4">
+                  Sign Up / Log In
+                </button>
+              </Link>
             </ul>
           </div>
         )}
 
         {/* Full Navigation Links for large screens */}
         <div className="hidden md:flex space-x-6">
-          <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">All Beats</a>
-          <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Free Beats</a>
-          <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Premium Beats</a>
-          <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">License Info</a>
-          <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">FAQ</a>
-          <a href="#" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Contact</a>
+          <Link to="/" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">All Beats</Link>
+          <Link to="/free-beats" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Free Beats</Link>
+          <Link to="/premium-beats" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Premium Beats</Link>
+          <Link to="/license-info" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">License Info</Link>
+          <Link to="/faq" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">FAQ</Link>
+          <Link to="/contact" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Contact</Link>
         </div>
-          {/* Sign Up / Log In Button for large screens */}
-          <div className="hidden md:flex">
-          <button className="bg-[#00A4E4] text-white font-bold py-2 px-4 rounded hover:bg-[#008ec1]">
-            Sign Up / Log In
-          </button>
+        {/* Sign Up / Log In Button for large screens */}
+        <div className="hidden md:flex">
+          <Link to="/signup-login">
+            <button className="bg-[#00A4E4] text-white font-bold py-2 px-4 rounded hover:bg-[#008ec1]">
+              Sign Up / Log In
+            </button>
+          </Link>
         </div>
       </div>
-      
     </nav>
   );
 };
