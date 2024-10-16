@@ -155,7 +155,7 @@ const MusicPlayer = () => {
 
 
     <div className="fixed bottom-0 left-0 right-0 bg-[#F5E6D3] p-4 rounded-t-lg shadow-lg z-50 sm:p-6  ">
-     
+
 
       {/* Current Song and Next Song */}
       <div className="flex flex-col sm:flex-row justify-between mb-4">
@@ -163,14 +163,20 @@ const MusicPlayer = () => {
           <img src={songs[currentSongIndex].icon} alt="Current Song" className="w-10 h-10 mr-2" />
           <span className="text-lg">{songs[currentSongIndex].name}</span>
         </div>
-        <div className="flex items-center cursor-pointer" onClick={() => playSongAtIndex((currentSongIndex + 1) % songs.length)}>
+
+        {/* Next Song Component, hidden on smaller screens, visible on md and larger */}
+        <div
+          className="hidden md:flex items-center cursor-pointer"
+          onClick={() => playSongAtIndex((currentSongIndex + 1) % songs.length)}
+        >
           <span className="text-lg">{songs[(currentSongIndex + 1) % songs.length].name}</span>
           <img src={songs[(currentSongIndex + 1) % songs.length].icon} alt="Next Song" className="w-10 h-10 ml-2" />
         </div>
       </div>
 
+
       {/* Progress Bar */}
-      <div className="mb-0">
+      <div className="mb-0 hidden md:block">
         <input
           type="range"
           className="w-full"
@@ -210,45 +216,45 @@ const MusicPlayer = () => {
 
       {/* Volume, Shuffle, Loop, Speed, and Rating */}
       <div className="flex justify-between items-center">
-        <div className="justify-between flex items-center gap-4">
-        <div className="flex items-center">
-          <FaVolumeUp />
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={volume}
-            onChange={(e) => {
-              setVolume(e.target.value);
-              audioRef.current.volume = e.target.value;
-            }}
-            className="ml-2"
-          />
+        <div className="justify-between hidden md:flex items-center gap-4">
+          <div className="flex items-center ">
+            <FaVolumeUp />
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={volume}
+              onChange={(e) => {
+                setVolume(e.target.value);
+                audioRef.current.volume = e.target.value;
+              }}
+              className="ml-2"
+            />
+          </div>
+
+          {/* Speed Selector */}
+          <div className="flex items-center">
+            <label htmlFor="speed" className="mr-2 text-sm">Speed</label>
+            <select id="speed" value={speed} onChange={handleSpeedChange} className="p-1 border rounded">
+              <option value="0.5">0.5x</option>
+              <option value="0.75">0.75x</option>
+              <option value="1">Normal</option>
+              <option value="1.25">1.25x</option>
+              <option value="1.5">1.5x</option>
+              <option value="2">2x</option>
+            </select>
+          </div>
         </div>
 
-        {/* speed */}
-        <div className="flex items-center">
-          <label htmlFor="speed" className="mr-2 text-sm">Speed</label>
-          <select id="speed" value={speed} onChange={handleSpeedChange} className="p-1 border rounded">
-            <option value="0.5">0.5x</option>
-            <option value="0.75">0.75x</option>
-            <option value="1">Normal</option>
-            <option value="1.25">1.25x</option>
-            <option value="1.5">1.5x</option>
-            <option value="2">2x</option>
-          </select>
-        </div>
-
-        </div>
 
 
         {/* Controls */}
-        <div className="flex items-center justify-center space-x-20 mb-0">
-          <button onClick={toggleLike} className="hover:text-red-500">
+        <div className="flex items-center justify-evenly md:justify-center space-x-20 mb-0">
+          <button onClick={toggleLike} className="hover:text-red-500 hidden md:block">
             <FaHeart className={`${isLiked ? "text-red-600" : ""}`} />
           </button>
-          <button onClick={skipBackward} className="hover:text-blue-500">
+          <button onClick={skipBackward} className="hover:text-blue-500 hidden md:block">
             <FaBackward />
           </button>
           <button className="hover:text-blue-500" onClick={() => setCurrentSongIndex((currentSongIndex - 1 + songs.length) % songs.length)}>
@@ -260,45 +266,45 @@ const MusicPlayer = () => {
           <button className="hover:text-blue-500" onClick={playNextSong}>
             <FaStepForward />
           </button>
-          <button onClick={skipForward} className="hover:text-blue-500">
+          <button onClick={skipForward} className="hover:text-blue-500 hidden md:block">
             <FaForward />
           </button>
-          
-        {/* 3 dots */}
 
-                
-        <div className="relative">
-          <button onClick={toggleDropdown} className="focus:outline-none ">
-            <FaEllipsisV />
-          </button>
-          {dropdownOpen && (
-            <div className="absolute bg-white shadow-lg rounded mt-2 right-0 w-48 z-10 max-h-40 overflow-y-auto">
-              <ul className="py-1">
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaShareAlt className="mr-2" /> Share
-                </li>
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaPlus className="mr-2" /> Add to Playlist
-                </li>
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaDownload className="mr-2" /> Download
-                </li>
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaMusic className="mr-2" /> View Lyrics
-                </li>
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaMusic className="mr-2" /> Play Similar Song
-                </li>
-                <li className="flex items-center px-2 py-2 hover:bg-gray-200">
-                  <FaInfoCircle className="mr-2" /> Get Song Info
-                </li>
-              </ul>
-            </div>
-          )}
-        </div>
+          {/* 3 dots */}
+
+
+          <div className="relative hidden md:block">
+            <button onClick={toggleDropdown} className="focus:outline-none ">
+              <FaEllipsisV />
+            </button>
+            {dropdownOpen && (
+              <div className="absolute bg-white shadow-lg rounded mt-2 right-0 w-48 z-10 max-h-40 overflow-y-auto">
+                <ul className="py-1">
+                  <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                    <FaShareAlt className="mr-2" /> Share
+                  </li>
+                  <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                    <FaPlus className="mr-2" /> Add to Playlist
+                  </li>
+                  <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                    <FaDownload className="mr-2" /> Download
+                  </li>
+                  <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                    <FaMusic className="mr-2" /> View Lyrics
+                  </li>
+                  <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                    <FaMusic className="mr-2" /> Play Similar Song
+                  </li>
+                  <li className="flex items-center px-2 py-2 hover:bg-gray-200">
+                    <FaInfoCircle className="mr-2" /> Get Song Info
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className="flex space-x-6">
+        <div className="hidden md:flex space-x-6 ">
           <button onClick={toggleShuffle} className={`${isShuffling ? "text-blue-500" : ""}`}>
             <FaRandom />
           </button>
@@ -309,7 +315,7 @@ const MusicPlayer = () => {
 
 
           {/* Rating */}
-          <div className="flex items-center gap-2">
+          <div className=" hidden md:flex items-center gap-2 ">
             <span>Rate this song</span>
             {Array.from({ length: 5 }, (_, index) => (
               <FaStar
