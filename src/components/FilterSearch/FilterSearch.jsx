@@ -8,12 +8,12 @@ const FilterSearch = () => {
             <div className='flex justify-between items-center flex-wrap'>
                 {/* Scrollable Filter Bar */}
                 <div className='filter-bar flex items-center gap-4 mt-4 ml-4 overflow-x-auto whitespace-nowrap'>
-                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max'>All</p>
-                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max'>Genre</p>
-                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max'>Mood</p>
-                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max'>Instrument</p>
-                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max'>Key</p>
-                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max'>BPM</p>
+                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max cursor-pointer hover:bg-[#D7C1A7]'>All</p>
+                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max cursor-pointer hover:bg-[#D7C1A7]'>Genre</p>
+                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max cursor-pointer hover:bg-[#D7C1A7]'>Mood</p>
+                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max cursor-pointer hover:bg-[#D7C1A7]'>Instrument</p>
+                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max cursor-pointer hover:bg-[#D7C1A7]'>Key</p>
+                    <p className='bg-[#E8D6C0] text-[#4A3728] px-4 py-1 rounded-2xl font-bold min-w-max cursor-pointer hover:bg-[#D7C1A7]'>BPM</p>
                 </div>
 
                 {/* Search Bar */}
