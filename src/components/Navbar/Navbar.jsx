@@ -3,7 +3,7 @@ import { FaBars, FaTimes } from 'react-icons/fa'; // Icons for hamburger and clo
 import { Link } from 'react-router-dom'; // Import Link from React Router
 import SignUpLogin from '../../pages/SignUpLogin'; // Adjust the path if needed
 
-const Navbar = ({ toggleModal }) => { // Accept toggleModal as a prop
+const Navbar = ({ toggleModal }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
@@ -24,8 +24,18 @@ const Navbar = ({ toggleModal }) => { // Accept toggleModal as a prop
           Beat Farm
         </div>
 
-        {/* Hamburger Menu for Mobile */}
-        <div className="md:hidden">
+        {/* Hamburger Menu and Cart Icon for Mobile */}
+        <div className="md:hidden flex items-center space-x-4">
+          {/* Cart Icon with Notification Badge */}
+          <div className="relative">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="h-6 w-6 text-black">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+            </svg>
+            <div className="absolute top-0 -right-2">
+              <p className="flex h-4 w-4 items-center justify-center rounded-full bg-red-500 p-2 text-xs text-white">3</p>
+            </div>
+          </div>
+
           <button onClick={toggleMenu}>
             {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
@@ -70,8 +80,19 @@ const Navbar = ({ toggleModal }) => { // Accept toggleModal as a prop
           <Link to="/contact" className="text-[#4A3728] font-lufga hover:text-[#00A4E4]">Contact</Link>
         </div>
 
-        {/* Sign Up / Log In Button for large screens */}
-        <div className="hidden md:flex">
+        {/* Cart Icon and Sign Up / Log In Button for large screens */}
+        <div className="hidden md:flex items-center space-x-6">
+          {/* Cart Icon with Notification Badge */}
+          <div className="relative">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="h-6 w-6 text-black">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+            </svg>
+            <div className="absolute top-0 -right-2">
+              <p className="flex h-4 w-4 items-center justify-center rounded-full bg-red-500 p-2 text-xs text-white">0</p>
+            </div>
+          </div>
+
+          {/* Sign Up / Log In Button */}
           <button onClick={handleModalToggle} className="bg-[#00A4E4] text-white font-bold py-2 px-4 rounded hover:bg-[#008ec1]">
             Sign Up / Log In
           </button>
@@ -83,7 +104,7 @@ const Navbar = ({ toggleModal }) => { // Accept toggleModal as a prop
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-40">
           <div className="bg-white rounded-lg p-6 w-96">
             <SignUpLogin />
-            <button onClick={handleModalToggle} className="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">
+            <button onClick={handleModalToggle} className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
               Close
             </button>
           </div>

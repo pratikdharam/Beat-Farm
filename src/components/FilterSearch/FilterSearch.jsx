@@ -1,7 +1,10 @@
 import React from 'react';
-import './FilterSearch.css'; // Import the custom CSS for scrollbar hiding
+import './FilterSearch.css'; // Make sure this CSS file exists
 
-const FilterSearch = () => {
+const FilterSearch = ({ setSearchTerm }) => {
+    const handleInputChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
 
     return (
         <>
@@ -17,7 +20,7 @@ const FilterSearch = () => {
                 </div>
 
                 {/* Search Bar */}
-                <div className='w-full md:w-96 mx-auto mt-4 md:mt-0 mr-1 md:mr-8 ml-1 '>
+                <div className='w-full md:w-96 mx-auto mt-4 md:mt-0 mr-1 md:mr-8 ml-1'>
                     <div className="relative flex items-center border border-x-cream w-full h-14 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
                         <div className="flex items-center h-full w-12 text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -28,12 +31,14 @@ const FilterSearch = () => {
                             className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 pl-2"
                             type="text"
                             id="search"
-                            placeholder="Quick guide to search" />
+                            placeholder="Quick guide to search"
+                            onChange={handleInputChange}
+                        />
                     </div>
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default FilterSearch;

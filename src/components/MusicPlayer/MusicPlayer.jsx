@@ -162,13 +162,15 @@ const MusicPlayer = () => {
         <div className="flex items-center mb-2 sm:mb-0">
           <img src={songs[currentSongIndex].icon} alt="Current Song" className="w-10 h-10 mr-2" />
           <span className="text-lg">{songs[currentSongIndex].name}</span>
+          <div className="ml-2">(Currently Playing)</div>
         </div>
 
         {/* Next Song Component, hidden on smaller screens, visible on md and larger */}
         <div
           className="hidden md:flex items-center cursor-pointer"
-          onClick={() => playSongAtIndex((currentSongIndex + 1) % songs.length)}
-        >
+          
+          onClick={() => playSongAtIndex((currentSongIndex + 1) % songs.length)}>
+          <div className="mr-2">(Next Song)</div>
           <span className="text-lg">{songs[(currentSongIndex + 1) % songs.length].name}</span>
           <img src={songs[(currentSongIndex + 1) % songs.length].icon} alt="Next Song" className="w-10 h-10 ml-2" />
         </div>
